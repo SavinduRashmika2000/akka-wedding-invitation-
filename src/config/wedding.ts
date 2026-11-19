@@ -20,8 +20,8 @@ export const weddingConfig: WeddingConfig = {
   // ⚠️ OPTIONAL — Ceremony time not yet confirmed
   ceremonyTime: undefined,
 
-  // ✅ Confirmed location URL
-  venueUrl: 'https://share.google/1cWseSUUOuDbtpgZa',
+  // ✅ Confirmed location URL (Google Maps)
+  venueUrl: 'https://maps.app.goo.gl/1gdupNA7brkF3Lhs7?g_st=ic',
 
   // ⚠️ OPTIONAL — Venue name not yet confirmed
   venueName: undefined,

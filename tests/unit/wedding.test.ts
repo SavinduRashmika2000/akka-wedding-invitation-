@@ -34,7 +34,7 @@ describe('weddingConfig', () => {
   });
 
   it('has the correct venue URL', () => {
-    expect(weddingConfig.venueUrl).toBe('https://share.google/1cWseSUUOuDbtpgZa');
+    expect(weddingConfig.venueUrl).toBe('https://maps.app.goo.gl/1gdupNA7brkF3Lhs7?g_st=ic');
   });
 
   it('does not invent a ceremony time', () => {
