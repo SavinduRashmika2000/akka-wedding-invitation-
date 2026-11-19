@@ -69,9 +69,14 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(page.getByText('Secs').first()).toBeVisible();
   });
 
-  test('floating music control button exists and is accessible', async ({ page }) => {
+  test('floating music control button exists and is accessible after opening invitation', async ({ page }) => {
     await page.goto(BASE_URL);
-    const musicBtn = page.getByRole('button', { name: 'Play music', exact: true });
+    // Before opening invitation, music button is not attached
+    await expect(page.getByRole('button', { name: /Play music|Pause music/i })).not.toBeAttached();
+
+    // Click Open Invitation
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
+    const musicBtn = page.getByRole('button', { name: /Pause music|Play music/i });
     await expect(musicBtn).toBeVisible();
     await expect(musicBtn).toBeEnabled();
   });

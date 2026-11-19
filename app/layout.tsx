@@ -3,7 +3,6 @@ import { Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { weddingConfig } from '@/config/wedding';
 import { MusicProvider } from '@/components/music/MusicContext';
-import { MusicControl } from '@/components/music/MusicControl';
 
 // Elegant serif for headings and couple names
 const cormorant = Cormorant_Garamond({
@@ -70,7 +69,6 @@ export default function RootLayout({
       </head>
       <body className="bg-[#faf9f6] text-[#222222] antialiased overflow-x-hidden">
         <MusicProvider>
-          <MusicControl />
           {children}
         </MusicProvider>
       </body>

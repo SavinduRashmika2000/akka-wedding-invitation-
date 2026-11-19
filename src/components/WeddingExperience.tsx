@@ -8,6 +8,7 @@ import { WeddingCountdown } from '@/components/sections/WeddingCountdown';
 import { WeddingLocation } from '@/components/sections/WeddingLocation';
 import { WeddingFooter } from '@/components/sections/WeddingFooter';
 import { FallingHearts } from '@/components/ui/FallingHearts';
+import { MusicControl } from '@/components/music/MusicControl';
 
 /**
  * Main wedding invitation interactive experience.
@@ -28,6 +29,9 @@ export function WeddingExperience() {
     >
       {/* Romantic falling gold hearts animation */}
       <FallingHearts />
+
+      {/* Floating music control button — only visible after opening invitation */}
+      {hasEntered && <MusicControl />}
 
       {/* 1. Hero with entrance card and full-screen video */}
       <WeddingHero hasEntered={hasEntered} onOpen={() => setHasEntered(true)} />
