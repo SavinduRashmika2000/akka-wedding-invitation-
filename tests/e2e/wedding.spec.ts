@@ -134,6 +134,23 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(footer).toContainText('Kavinda');
     await expect(footer).toContainText('2027');
   });
+
+  test('reloading from bottom of page restores top entrance card', async ({ page }) => {
+    await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(300);
+
+    // Refresh page
+    await page.reload();
+    await page.waitForTimeout(500);
+
+    // Entrance card & button must be visible at top
+    const enterBtn = page.getByRole('button', { name: /Open Invitation/i });
+    await expect(enterBtn).toBeVisible();
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(0);
+  });
 });
 
 test.describe('Wedding Invitation — Mobile Layout', () => {

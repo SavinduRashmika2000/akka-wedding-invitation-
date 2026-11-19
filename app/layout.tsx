@@ -66,6 +66,11 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);`,
+          }}
+        />
       </head>
       <body className="bg-[#faf9f6] text-[#222222] antialiased overflow-x-hidden">
         <MusicProvider>
