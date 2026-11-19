@@ -122,7 +122,7 @@ export function WeddingCountdown() {
 
             {/* Note */}
             <p className="font-sans text-xs text-[#777777] mt-8 tracking-wider">
-              * Countdown to 27 January 2027 · Ceremony time to be announced
+              Countdown to 27 January 2027 · Ceremony time to be announced
             </p>
           </>
         )}

@@ -91,26 +91,7 @@ export function WeddingLocation() {
                 View Location
               </a>
 
-              <a
-                href={weddingConfig.venueUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={[
-                  'flex-1 flex items-center justify-center gap-2',
-                  'px-6 py-3.5 rounded-full',
-                  'bg-white hover:bg-amber-50/50',
-                  'border-2 border-[#d4af37]',
-                  'text-[#88651a] font-serif text-base font-semibold tracking-wider',
-                  'transition-all duration-300 transform hover:scale-105',
-                  'focus:outline-none focus:ring-4 focus:ring-[#d4af37]/40',
-                ].join(' ')}
-                aria-label="Get directions"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 shrink-0" aria-hidden="true">
-                  <path d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
-                </svg>
-                Get Directions
-              </a>
+             
             </div>
           </div>
         </div>
