@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ════════════════════════════════════════
+   LUXURY WHITE & GOLD WEDDING THEME
+   ════════════════════════════════════════ */
+
+@theme inline {
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+
+  /* White & Gold Color Palette */
+  --color-gold-50: #fbf8ee;
+  --color-gold-100: #f5eed3;
+  --color-gold-200: #ebdca7;
+  --color-gold-300: #dec474;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #c5a028;
+  --color-gold-600: #aa851e;
+  --color-gold-700: #88651a;
+  --color-gold-800: #6f511b;
+
+  --color-pearl: #faf9f6;
+  --color-ivory: #ffffff;
+  --color-charcoal: #222222;
+  --color-charcoal-light: #444444;
+  --color-warm-gray: #666666;
+
+  /* Keyframe Animations */
+  --animate-hero-entrance: hero-entrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fade-in 0.8s ease forwards;
+  --animate-music-bar-1: music-bar 1.2s ease-in-out 0s infinite alternate;
+  --animate-music-bar-2: music-bar 1.2s ease-in-out 0.2s infinite alternate;
+  --animate-music-bar-3: music-bar 1.2s ease-in-out 0.4s infinite alternate;
+  --animate-music-bar-4: music-bar 1.2s ease-in-out 0.6s infinite alternate;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-shimmer-gold: shimmer-gold 2.5s infinite;
+}
+
+@keyframes hero-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes music-bar {
+  from { height: 4px;  }
+  to   { height: 18px; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes shimmer-gold {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Base Styles */
+:root {
+  --background: #faf9f6;
+  --foreground: #222222;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #faf9f6;
+  color: #222222;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif), 'Georgia', serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Gold Gradient Utilities */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #aa851e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #c5a028 100%);
+}
+
+.bg-gold-button {
+  background: linear-gradient(135deg, #d4af37 0%, #e6ca65 50%, #b8860b 100%);
+}
+
+.border-gold {
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.border-gold-strong {
+  border-color: rgba(212, 175, 55, 0.8);
+}
+
+.shadow-gold {
+  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.25);
+}
+
+.shadow-gold-lg {
+  box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.35);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Music bar animations */
+.animate-music-bar-1 { animation: music-bar 1.2s ease-in-out 0.0s infinite alternate; min-height: 4px; }
+.animate-music-bar-2 { animation: music-bar 1.2s ease-in-out 0.2s infinite alternate; min-height: 4px; }
+.animate-music-bar-3 { animation: music-bar 1.2s ease-in-out 0.4s infinite alternate; min-height: 4px; }
+.animate-music-bar-4 { animation: music-bar 1.2s ease-in-out 0.6s infinite alternate; min-height: 4px; }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #faf9f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4af3780;
+  border-radius: 3px;
+}
