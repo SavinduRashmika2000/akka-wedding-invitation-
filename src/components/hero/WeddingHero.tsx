@@ -153,10 +153,6 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
               <path d="M8 5v14l11-7z" />
             </svg>
           </button>
-
-          <p className="text-[10px] text-[#88651a]/60 font-sans tracking-widest mt-3">
-            Tap to view video &amp; play music
-          </p>
         </div>
       </div>
 

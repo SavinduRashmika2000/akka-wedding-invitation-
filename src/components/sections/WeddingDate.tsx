@@ -73,13 +73,6 @@ export function WeddingDate() {
               </p>
             </div>
           </div>
-
-          {/* Calendar footer */}
-          <div className="w-full bg-[#fdfbf7] px-8 py-3 border-t border-[#d4af37]/20">
-            <p className="font-sans text-[11px] text-[#88651a] tracking-[0.25em] uppercase text-center font-medium">
-              Asia / Colombo
-            </p>
-          </div>
         </time>
 
         {/* Flourish */}
