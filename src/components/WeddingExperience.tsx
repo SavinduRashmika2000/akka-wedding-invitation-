@@ -7,6 +7,7 @@ import { WeddingDate } from '@/components/sections/WeddingDate';
 import { WeddingCountdown } from '@/components/sections/WeddingCountdown';
 import { WeddingLocation } from '@/components/sections/WeddingLocation';
 import { WeddingFooter } from '@/components/sections/WeddingFooter';
+import { FallingHearts } from '@/components/ui/FallingHearts';
 
 /**
  * Main wedding invitation interactive experience.
@@ -25,6 +26,9 @@ export function WeddingExperience() {
         hasEntered ? 'min-h-screen overflow-x-hidden' : 'h-[100svh] overflow-hidden'
       }`}
     >
+      {/* Romantic falling gold hearts animation */}
+      <FallingHearts />
+
       {/* 1. Hero with entrance card and full-screen video */}
       <WeddingHero hasEntered={hasEntered} onOpen={() => setHasEntered(true)} />
 
