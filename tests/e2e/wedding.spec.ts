@@ -73,7 +73,7 @@ test.describe('Wedding Invitation — Core E2E', () => {
     const locationLink = page.getByRole('link', { name: 'View Location' });
     await expect(locationLink).toBeVisible();
     const href = await locationLink.getAttribute('href');
-    expect(href).toContain('google.com');
+    expect(href).toBe('https://share.google/1cWseSUUOuDbtpgZa');
   });
 
   test('venue link opens in new tab with rel=noopener', async ({ page }) => {

@@ -21,7 +21,7 @@ export const weddingConfig: WeddingConfig = {
   ceremonyTime: undefined,
 
   // ✅ Confirmed location URL
-  venueUrl: 'https://www.google.com/travel/hotels/s/qKdTvBYdpBc3itF16',
+  venueUrl: 'https://share.google/1cWseSUUOuDbtpgZa',
 
   // ⚠️ OPTIONAL — Venue name not yet confirmed
   venueName: undefined,

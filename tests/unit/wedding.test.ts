@@ -34,7 +34,7 @@ describe('weddingConfig', () => {
   });
 
   it('has the correct venue URL', () => {
-    expect(weddingConfig.venueUrl).toContain('google.com');
+    expect(weddingConfig.venueUrl).toBe('https://share.google/1cWseSUUOuDbtpgZa');
   });
 
   it('does not invent a ceremony time', () => {
