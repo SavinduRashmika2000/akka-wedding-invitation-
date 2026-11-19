@@ -61,7 +61,6 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
         src={weddingConfig.media.landingVideo}
         loop
         muted
-        autoPlay
         playsInline
         preload="auto"
         className={[
@@ -75,7 +74,7 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
       {/* ── STATE 1: White & Gold invitation card ── */}
       <div
         className={[
-          'absolute inset-0 z-20 flex flex-col items-center justify-center p-6',
+          'absolute inset-0 z-30 flex flex-col items-center justify-center p-6',
           'bg-[#faf9f6] transition-opacity duration-700',
           hasEntered ? 'opacity-0 pointer-events-none' : 'opacity-100',
         ].join(' ')}

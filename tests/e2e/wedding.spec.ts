@@ -23,13 +23,12 @@ test.describe('Wedding Invitation — Core E2E', () => {
     expect(src).toContain('landing-video');
   });
 
-  test('video has correct attributes for autoplay', async ({ page }) => {
+  test('video has correct attributes for playback', async ({ page }) => {
     await page.goto(BASE_URL);
     const video = page.locator('video').first();
     await expect(video).toHaveAttribute('muted');
     await expect(video).toHaveAttribute('loop');
     await expect(video).toHaveAttribute('playsinline');
-    await expect(video).toHaveAttribute('autoplay');
   });
 
   test('bride name Yaanaki appears over hero', async ({ page }) => {

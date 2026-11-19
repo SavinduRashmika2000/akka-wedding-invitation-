@@ -51,7 +51,7 @@ export function FallingHearts() {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none overflow-hidden z-25 select-none"
+      className="fixed inset-0 pointer-events-none overflow-hidden z-10 select-none"
       aria-hidden="true"
     >
       {hearts.map((heart) => (
