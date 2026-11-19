@@ -44,8 +44,16 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(kavinda).toBeVisible();
   });
 
-  test('wedding date 27 January 2027 is displayed in date section', async ({ page }) => {
+  test('without pressing open invitation, details sections are hidden', async ({ page }) => {
     await page.goto(BASE_URL);
+    const dateSection = page.locator('#date');
+    await expect(dateSection).not.toBeAttached();
+    await expect(page.getByText(/Together With Their Families/i)).not.toBeAttached();
+  });
+
+  test('wedding date 27 January 2027 is displayed after opening invitation', async ({ page }) => {
+    await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     const dateSection = page.locator('#date');
     await expect(dateSection).toBeAttached();
     await expect(dateSection.getByText('27', { exact: true })).toBeVisible();
@@ -53,8 +61,9 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(dateSection.getByText('2027', { exact: true })).toBeVisible();
   });
 
-  test('countdown shows days, hours, minutes, seconds', async ({ page }) => {
+  test('countdown shows days, hours, minutes, seconds after opening invitation', async ({ page }) => {
     await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     await expect(page.getByText('Days').first()).toBeVisible();
     await expect(page.getByText('Hours').first()).toBeVisible();
     await expect(page.getByText('Mins').first()).toBeVisible();
@@ -68,8 +77,9 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(musicBtn).toBeEnabled();
   });
 
-  test('venue location link is present and has correct href', async ({ page }) => {
+  test('venue location link is present and has correct href after opening invitation', async ({ page }) => {
     await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     const locationLink = page.getByRole('link', { name: 'View Location' });
     await expect(locationLink).toBeVisible();
     const href = await locationLink.getAttribute('href');
@@ -78,6 +88,7 @@ test.describe('Wedding Invitation — Core E2E', () => {
 
   test('venue link opens in new tab with rel=noopener', async ({ page }) => {
     await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     const link = page.getByRole('link', { name: 'View Location' });
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -103,13 +114,15 @@ test.describe('Wedding Invitation — Core E2E', () => {
     await expect(enterBtn).toBeVisible();
   });
 
-  test('invitation section renders', async ({ page }) => {
+  test('invitation section renders after opening invitation', async ({ page }) => {
     await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     await expect(page.getByText(/Together With Their Families/i)).toBeVisible();
   });
 
-  test('footer displays couple names and date', async ({ page }) => {
+  test('footer displays couple names and date after opening invitation', async ({ page }) => {
     await page.goto(BASE_URL);
+    await page.getByRole('button', { name: /Open Invitation/i }).click();
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(500);
     const footer = page.locator('footer');

@@ -4,15 +4,22 @@ import React, { useRef, useState } from 'react';
 import { weddingConfig } from '@/config/wedding';
 import { useMusicContext } from '@/components/music/MusicContext';
 
+interface WeddingHeroProps {
+  hasEntered?: boolean;
+  onOpen?: () => void;
+}
+
 /**
  * Wedding Hero Section — two states:
  * 1. White & Gold invitation card (video preloads in background)
  * 2. Full-screen video after "Open Invitation" click + music starts
  */
-export function WeddingHero() {
+export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { play } = useMusicContext();
-  const [hasEntered, setHasEntered] = useState(false);
+  const [localHasEntered, setLocalHasEntered] = useState(false);
+
+  const hasEntered = propHasEntered !== undefined ? propHasEntered : localHasEntered;
 
   const handleOpenInvitation = () => {
     // 1. Immediately trigger background music on user gesture
@@ -29,7 +36,11 @@ export function WeddingHero() {
     }
 
     // 3. Smoothly reveal the video viewport
-    setHasEntered(true);
+    if (onOpen) {
+      onOpen();
+    } else {
+      setLocalHasEntered(true);
+    }
   };
 
   const handleScrollDown = (e: React.MouseEvent) => {
