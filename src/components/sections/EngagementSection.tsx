@@ -74,8 +74,14 @@ export function EngagementSection() {
           </span>
         </div>
 
-        {/* 4-Image Luxury Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 max-w-5xl mx-auto">
+        {/* Engagement Showcase (Featured Portrait or Gallery) */}
+        <div
+          className={
+            engagement.images.length === 1
+              ? 'max-w-md sm:max-w-lg mx-auto'
+              : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto'
+          }
+        >
           {engagement.images.map((item, index) => {
             const isFailed = failedImages[index];
 
@@ -84,14 +90,14 @@ export function EngagementSection() {
                 key={index}
                 onClick={() => !isFailed && setSelectedImage(index)}
                 className={[
-                  'group relative overflow-hidden rounded-2xl',
-                  'border-2 border-[#d4af37]/50',
-                  'bg-white shadow-lg shadow-[#d4af37]/10',
-                  'transition-all duration-500 hover:shadow-xl hover:shadow-[#d4af37]/25 hover:-translate-y-1',
+                  'group relative overflow-hidden rounded-3xl',
+                  'border-2 border-[#d4af37]/60',
+                  'bg-white shadow-xl shadow-[#d4af37]/15',
+                  'transition-all duration-500 hover:shadow-2xl hover:shadow-[#d4af37]/30 hover:-translate-y-1',
                   !isFailed ? 'cursor-pointer' : 'cursor-default',
                 ].join(' ')}
               >
-                {/* Photo container with fixed luxury aspect ratio */}
+                {/* Photo container with luxury portrait aspect ratio */}
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-b from-[#fdfbf7] to-[#f4ede0] flex items-center justify-center">
                   {!isFailed ? (
                     <>
@@ -99,10 +105,14 @@ export function EngagementSection() {
                         src={imgSources[index] || item.src}
                         alt={item.alt}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        sizes={
+                          engagement.images.length === 1
+                            ? '(max-width: 640px) 92vw, (max-width: 1024px) 500px, 512px'
+                            : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+                        }
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         onError={() => handleImageError(index)}
-                        priority={index < 2}
+                        priority
                       />
                       {/* Hover overlay hint */}
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

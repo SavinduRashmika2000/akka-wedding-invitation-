@@ -44,24 +44,9 @@ export const weddingConfig: WeddingConfig = {
     subheading: 'Where Forever Began · 30 July 2026',
     images: [
       {
-        src: '/images/engagement/engagement-1.jpeg',
-        alt: 'Engagement Celebration 1',
-        caption: 'The Promise',
-      },
-      {
         src: '/images/engagement/engagement-2.jpeg',
-        alt: 'Engagement Celebration 2',
-        caption: 'A Golden Moment',
-      },
-      {
-        src: '/images/engagement/engagement-3.jpeg',
-        alt: 'Engagement Celebration 3',
-        caption: 'Two Hearts United',
-      },
-      {
-        src: '/images/engagement/engagement-4.jpeg',
-        alt: 'Engagement Celebration 4',
-        caption: 'Forever & Always',
+        alt: 'Yaanaki & Kavinda Engagement',
+        caption: 'The Beginning of Forever',
       },
     ],
   },

@@ -44,7 +44,8 @@ describe('weddingConfig', () => {
   it('has the confirmed engagement details on 30.07.2026', () => {
     expect(weddingConfig.engagement.dateString).toBe('2026-07-30');
     expect(weddingConfig.engagement.formattedDate).toBe('30 July 2026');
-    expect(weddingConfig.engagement.images).toHaveLength(4);
+    expect(weddingConfig.engagement.images).toHaveLength(1);
+    expect(weddingConfig.engagement.images[0].src).toBe('/images/engagement/engagement-2.jpeg');
   });
 
   it('does not invent a venue name', () => {

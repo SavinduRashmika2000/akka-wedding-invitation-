@@ -21,11 +21,12 @@ test.describe('Engagement Section & Wedding Ceremony Time', () => {
     await expect(page.getByText('30.07.2026').first()).toBeVisible();
   });
 
-  test('displays 4 engagement photo cards', async ({ page }) => {
+  test('displays the featured engagement photo card', async ({ page }) => {
     const engagementSection = page.locator('#engagement');
-    // There should be 4 cards in the grid
-    const cards = engagementSection.locator('.grid > div');
-    await expect(cards).toHaveCount(4);
+    const cards = engagementSection.locator('img');
+    await expect(cards).toHaveCount(1);
+    const src = await cards.first().getAttribute('src');
+    expect(src).toContain('engagement-2');
   });
 
   test('wedding ceremony time 6:00 PM is displayed in Date and Location sections', async ({ page }) => {
