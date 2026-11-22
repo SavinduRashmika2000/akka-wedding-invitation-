@@ -13,9 +13,24 @@ export function EngagementSection() {
   const { engagement } = weddingConfig;
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
+  const [imgSources, setImgSources] = useState<Record<number, string>>(() => {
+    const map: Record<number, string> = {};
+    engagement.images.forEach((img, idx) => {
+      map[idx] = img.src;
+    });
+    return map;
+  });
 
   const handleImageError = (index: number) => {
-    setFailedImages((prev) => ({ ...prev, [index]: true }));
+    const current = imgSources[index] || engagement.images[index].src;
+    // Gracefully try alternate extension (.jpeg <-> .jpg) before falling back to placeholder
+    if (current.endsWith('.jpeg')) {
+      setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.jpeg$/, '.jpg') }));
+    } else if (current.endsWith('.jpg')) {
+      setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.jpg$/, '.jpeg') }));
+    } else {
+      setFailedImages((prev) => ({ ...prev, [index]: true }));
+    }
   };
 
   return (
@@ -81,7 +96,7 @@ export function EngagementSection() {
                   {!isFailed ? (
                     <>
                       <Image
-                        src={item.src}
+                        src={imgSources[index] || item.src}
                         alt={item.alt}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -172,7 +187,7 @@ export function EngagementSection() {
             {/* Modal image container */}
             <div className="relative w-full aspect-[4/5] sm:aspect-[16/10] bg-stone-900">
               <Image
-                src={engagement.images[selectedImage].src}
+                src={imgSources[selectedImage] || engagement.images[selectedImage].src}
                 alt={engagement.images[selectedImage].alt}
                 fill
                 className="object-contain"
