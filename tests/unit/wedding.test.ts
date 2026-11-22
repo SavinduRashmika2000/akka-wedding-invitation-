@@ -29,7 +29,7 @@ describe('weddingConfig', () => {
   });
 
   it('has correct media paths', () => {
-    expect(weddingConfig.media.landingVideo).toBe('/media/landing-video.mp4');
+    expect(weddingConfig.media.landingVideo).toBe('/media/landing-video-new.mp4');
     expect(weddingConfig.media.themeSong).toBe('/media/theme-song.mp3');
   });
 
@@ -37,8 +37,14 @@ describe('weddingConfig', () => {
     expect(weddingConfig.venueUrl).toBe('https://maps.app.goo.gl/1gdupNA7brkF3Lhs7?g_st=ic');
   });
 
-  it('does not invent a ceremony time', () => {
-    expect(weddingConfig.ceremonyTime).toBeUndefined();
+  it('has the confirmed ceremony time of 6:00 PM', () => {
+    expect(weddingConfig.ceremonyTime).toBe('6:00 PM');
+  });
+
+  it('has the confirmed engagement details on 30.07.2026', () => {
+    expect(weddingConfig.engagement.dateString).toBe('2026-07-30');
+    expect(weddingConfig.engagement.formattedDate).toBe('30 July 2026');
+    expect(weddingConfig.engagement.images).toHaveLength(4);
   });
 
   it('does not invent a venue name', () => {

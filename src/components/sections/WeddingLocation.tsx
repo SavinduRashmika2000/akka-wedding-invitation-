@@ -60,11 +60,13 @@ export function WeddingLocation() {
 
             <div className="flex flex-col items-center gap-1">
               <p className="font-sans text-xs text-[#b8860b] tracking-widest uppercase font-semibold">
-                Wednesday
+                Wednesday · 27 January 2027
               </p>
-              <p className="font-serif text-base text-[#444444]">
-                27 January 2027
-              </p>
+              {weddingConfig.ceremonyTime && (
+                <p className="font-serif text-base text-[#1a1a1a] font-medium flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[#b8860b] text-sm">Ceremony at</span> {weddingConfig.ceremonyTime}
+                </p>
+              )}
             </div>
 
             {/* Action buttons */}

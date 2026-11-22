@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { WeddingHero } from '@/components/hero/WeddingHero';
 import { InvitationSection } from '@/components/sections/InvitationSection';
+import { EngagementSection } from '@/components/sections/EngagementSection';
 import { WeddingDate } from '@/components/sections/WeddingDate';
 import { WeddingCountdown } from '@/components/sections/WeddingCountdown';
 import { WeddingLocation } from '@/components/sections/WeddingLocation';
@@ -58,6 +59,7 @@ export function WeddingExperience() {
       {hasEntered && (
         <div className="w-full transition-opacity duration-1000 animate-in fade-in">
           <InvitationSection />
+          <EngagementSection />
           <WeddingDate />
           <WeddingCountdown />
           <WeddingLocation />

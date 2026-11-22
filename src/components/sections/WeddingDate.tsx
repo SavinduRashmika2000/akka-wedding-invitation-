@@ -72,6 +72,22 @@ export function WeddingDate() {
                 2027
               </p>
             </div>
+
+            {/* Ceremony Time */}
+            {weddingConfig.ceremonyTime && (
+              <>
+                <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#d4af37] to-transparent" aria-hidden="true" />
+                <div className="flex items-center gap-2 text-[#88651a]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-[#b8860b]" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <p className="font-serif text-lg tracking-widest font-semibold text-[#1a1a1a]">
+                    {weddingConfig.ceremonyTime}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </time>
 

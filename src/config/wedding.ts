@@ -9,16 +9,16 @@ export const weddingConfig: WeddingConfig = {
   bride: 'Yaanaki',
   bestMan: 'Kavinda',
 
-  // ✅ Confirmed wedding date
-  weddingDate: new Date('2027-01-27T00:00:00+05:30'),
+  // ✅ Confirmed wedding date & time (6:00 PM Colombo time)
+  weddingDate: new Date('2027-01-27T18:00:00+05:30'),
   weddingDateString: '2027-01-27',
   weddingDay: 'Wednesday',
 
   // ✅ Confirmed timezone
   timezone: 'Asia/Colombo',
 
-  // ⚠️ OPTIONAL — Ceremony time not yet confirmed
-  ceremonyTime: undefined,
+  // ✅ Confirmed ceremony time: 6:00 PM
+  ceremonyTime: '6:00 PM',
 
   // ✅ Confirmed location URL (Google Maps)
   venueUrl: 'https://maps.app.goo.gl/1gdupNA7brkF3Lhs7?g_st=ic',
@@ -32,6 +32,38 @@ export const weddingConfig: WeddingConfig = {
   media: {
     landingVideo: '/media/landing-video-new.mp4',
     themeSong: '/media/theme-song.mp3',
+  },
+
+  // ✅ Confirmed engagement details
+  engagement: {
+    date: new Date('2026-07-30T00:00:00+05:30'),
+    dateString: '2026-07-30',
+    day: 'Thursday',
+    formattedDate: '30 July 2026',
+    heading: 'Our Engagement',
+    subheading: 'Where Forever Began · 30 July 2026',
+    images: [
+      {
+        src: '/images/engagement/engagement-1.jpg',
+        alt: 'Engagement Celebration 1',
+        caption: 'The Promise',
+      },
+      {
+        src: '/images/engagement/engagement-2.jpg',
+        alt: 'Engagement Celebration 2',
+        caption: 'A Golden Moment',
+      },
+      {
+        src: '/images/engagement/engagement-3.jpg',
+        alt: 'Engagement Celebration 3',
+        caption: 'Two Hearts United',
+      },
+      {
+        src: '/images/engagement/engagement-4.jpg',
+        alt: 'Engagement Celebration 4',
+        caption: 'Forever & Always',
+      },
+    ],
   },
 
   seo: {

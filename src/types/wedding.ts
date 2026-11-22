@@ -1,3 +1,19 @@
+export interface EngagementImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+export interface EngagementConfig {
+  date: Date;
+  dateString: string;
+  day: string;
+  formattedDate: string;
+  heading: string;
+  subheading?: string;
+  images: EngagementImage[];
+}
+
 // Wedding type definitions
 export interface WeddingConfig {
   bride: string;
@@ -6,7 +22,7 @@ export interface WeddingConfig {
   weddingDateString: string; // ISO string for serialization
   weddingDay: string;
   timezone: string;
-  ceremonyTime?: string; // Optional — not yet confirmed
+  ceremonyTime?: string; // Confirmed: 6:00 PM
   venueUrl: string;
   venueName?: string; // Optional — not yet confirmed
   venueAddress?: string; // Optional — not yet confirmed
@@ -14,6 +30,7 @@ export interface WeddingConfig {
     landingVideo: string;
     themeSong: string;
   };
+  engagement: EngagementConfig;
   seo: {
     title: string;
     description: string;
