@@ -26,26 +26,20 @@ export function WeddingExperience() {
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'manual';
       }
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   }, []);
 
   const handleOpen = () => {
     setHasEntered(true);
-    // Smoothly ensure we start from the top when opening
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
+    // If not at the top, reset instantly without locking the smooth scroll engine
+    if (typeof window !== 'undefined' && window.scrollY > 0) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
   return (
-    <main
-      className={`w-full bg-[#faf9f6] ${
-        hasEntered
-          ? 'relative min-h-screen overflow-x-hidden'
-          : 'fixed inset-0 h-[100svh] overflow-hidden z-10'
-      }`}
-    >
+    <main className="relative w-full min-h-screen overflow-x-hidden bg-[#faf9f6]">
       {/* Romantic falling gold hearts animation */}
       <FallingHearts />
 

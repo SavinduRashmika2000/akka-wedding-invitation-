@@ -21,7 +21,12 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
 
   const hasEntered = propHasEntered !== undefined ? propHasEntered : localHasEntered;
 
-  const handleOpenInvitation = () => {
+  const handleOpenInvitation = (e?: React.MouseEvent) => {
+    // Release focus from button immediately
+    if (e?.currentTarget) {
+      (e.currentTarget as HTMLButtonElement).blur();
+    }
+
     // 1. Immediately trigger background music on user gesture
     play();
 
@@ -64,7 +69,7 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
         playsInline
         preload="auto"
         className={[
-          'absolute inset-0 w-full h-full object-cover z-0',
+          'absolute inset-0 w-full h-full object-cover z-0 pointer-events-none',
           'transition-opacity duration-1000',
           hasEntered ? 'opacity-100' : 'opacity-0',
         ].join(' ')}
