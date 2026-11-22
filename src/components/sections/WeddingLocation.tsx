@@ -49,10 +49,10 @@ export function WeddingLocation() {
           <div className="px-6 py-8 flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-1">
               <p className="font-serif text-2xl text-[#1a1a1a] tracking-wider font-medium">
-                Venue To Be Announced
+                Willuda Inn
               </p>
-              <p className="font-sans text-xs text-[#777777] tracking-wider mt-1">
-                Details will be shared with invited guests
+              <p className="font-sans text-sm text-[#b8860b] tracking-wider mt-1 font-medium">
+                Godagama
               </p>
             </div>
 

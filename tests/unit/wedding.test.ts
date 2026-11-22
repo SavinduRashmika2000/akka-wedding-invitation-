@@ -48,8 +48,8 @@ describe('weddingConfig', () => {
     expect(weddingConfig.engagement.images[0].src).toBe('/images/engagement/engagement-2.jpeg');
   });
 
-  it('does not invent a venue name', () => {
-    expect(weddingConfig.venueName).toBeUndefined();
+  it('has the confirmed venue name', () => {
+    expect(weddingConfig.venueName).toBe('Willuda Inn - Godagama');
   });
 
   it('does not invent a venue address', () => {

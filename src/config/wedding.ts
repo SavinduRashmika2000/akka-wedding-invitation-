@@ -23,8 +23,8 @@ export const weddingConfig: WeddingConfig = {
   // ✅ Confirmed location URL (Google Maps)
   venueUrl: 'https://maps.app.goo.gl/1gdupNA7brkF3Lhs7?g_st=ic',
 
-  // ⚠️ OPTIONAL — Venue name not yet confirmed
-  venueName: undefined,
+  // ✅ Confirmed venue name
+  venueName: 'Willuda Inn - Godagama',
 
   // ⚠️ OPTIONAL — Venue address not yet confirmed
   venueAddress: undefined,
