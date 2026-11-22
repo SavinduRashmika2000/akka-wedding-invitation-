@@ -30,7 +30,7 @@ export const weddingConfig: WeddingConfig = {
   venueAddress: undefined,
 
   media: {
-    landingVideo: '/media/landing-video.mp4',
+    landingVideo: '/media/landing-video-new.mp4',
     themeSong: '/media/theme-song.mp3',
   },
 
