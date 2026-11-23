@@ -8,12 +8,22 @@ interface KidsDoorOpeningProps {
   onAnimationComplete: () => void;
 }
 
-type DoorStage = 'closed' | 'opening' | 'opened' | 'finished';
+type DoorStage = 'idle' | 'closed' | 'light-bloom' | 'opening' | 'opened' | 'fadeout' | 'finished';
 
 /**
- * Floating flower petal for romantic wedding atmosphere
+ * Floating flower petal
  */
-function Petal({ id, left, delay, duration }: { id: number; left: number; delay: number; duration: number }) {
+function Petal({
+  id,
+  left,
+  delay,
+  duration,
+}: {
+  id: number;
+  left: number;
+  delay: number;
+  duration: number;
+}) {
   return (
     <span
       key={id}
@@ -25,7 +35,11 @@ function Petal({ id, left, delay, duration }: { id: number; left: number; delay:
       }}
       aria-hidden="true"
     >
-      <svg viewBox="0 0 24 24" className="w-4 h-4 text-amber-100/90 fill-current drop-shadow-sm rotate-12">
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4 fill-current"
+        style={{ color: 'rgba(255, 240, 180, 0.85)' }}
+      >
         <path d="M12 2C9 7 4 11 4 16c0 4.4 3.6 8 8 8s8-3.6 8-8c0-5-5-9-8-14z" />
       </svg>
     </span>
@@ -34,169 +48,200 @@ function Petal({ id, left, delay, duration }: { id: number; left: number; delay:
 
 /**
  * KidsDoorOpening Component
- * Features the user's custom White & Gold floral palace gate with two smiling kids
- * (page boy in tuxedo and flower girl in ivory dress) opening the doors to reveal the celebration video.
+ *
+ * Animation sequence:
+ *  0 ms   → show CLOSED door image (kids pushing handles)
+ *  600 ms → warm golden light blooms from centre seam
+ *  1 400 ms → crossfade to OPEN door image (kids peeking through)
+ *  3 000 ms → whole overlay fades out
+ *  3 600 ms → unmount
+ *
+ * Uses two real artwork images instead of CSS 3-D rotation for a
+ * photorealistic, smooth, and mobile-friendly effect.
  */
 export function KidsDoorOpening({ isOpen, onAnimationComplete }: KidsDoorOpeningProps) {
-  const [stage, setStage] = useState<DoorStage>('closed');
+  const [stage, setStage] = useState<DoorStage>('idle');
 
   useEffect(() => {
     if (!isOpen) {
-      setStage('closed');
+      setStage('idle');
       return;
     }
 
-    // Stage 1: Display greeting doors with kids (0.7s)
-    const t1 = setTimeout(() => {
-      setStage('opening');
-    }, 700);
+    // Show closed door immediately
+    setStage('closed');
 
-    // Stage 2: Doors swung wide open, begin graceful dissolve (2.6s)
-    const t2 = setTimeout(() => {
-      setStage('opened');
-    }, 2600);
+    // Golden light bloom begins
+    const t1 = setTimeout(() => setStage('light-bloom'), 600);
 
-    // Stage 3: Fade complete, unmount overlay (3.1s)
-    const t3 = setTimeout(() => {
+    // Cross-fade to open image
+    const t2 = setTimeout(() => setStage('opening'), 1200);
+
+    // Fully open image shown
+    const t3 = setTimeout(() => setStage('opened'), 2200);
+
+    // Begin fade-out of whole overlay
+    const t4 = setTimeout(() => setStage('fadeout'), 3200);
+
+    // Unmount
+    const t5 = setTimeout(() => {
       setStage('finished');
       onAnimationComplete();
-    }, 3100);
+    }, 4000);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
+      clearTimeout(t4);
+      clearTimeout(t5);
     };
   }, [isOpen, onAnimationComplete]);
 
-  if (!isOpen || stage === 'finished') return null;
+  if (!isOpen || stage === 'idle' || stage === 'finished') return null;
 
-  const isOpening = stage === 'opening' || stage === 'opened';
-  const isOpened = stage === 'opened';
+  const bloomVisible = stage === 'light-bloom' || stage === 'opening' || stage === 'opened' || stage === 'fadeout';
+  const openVisible  = stage === 'opening'    || stage === 'opened' || stage === 'fadeout';
+  const overlayFade  = stage === 'fadeout';
 
-  // 8 staggered soft floating petals
   const petals = [
-    { id: 1, left: 12, delay: 0, duration: 4.5 },
-    { id: 2, left: 28, delay: 0.8, duration: 5.2 },
-    { id: 3, left: 45, delay: 0.3, duration: 4.8 },
-    { id: 4, left: 62, delay: 1.2, duration: 5.5 },
-    { id: 5, left: 78, delay: 0.5, duration: 4.2 },
-    { id: 6, left: 88, delay: 1.5, duration: 5.0 },
-    { id: 7, left: 20, delay: 1.8, duration: 4.6 },
-    { id: 8, left: 70, delay: 2.1, duration: 5.1 },
+    { id: 1, left: 10, delay: 0,   duration: 5.0 },
+    { id: 2, left: 25, delay: 0.7, duration: 5.5 },
+    { id: 3, left: 42, delay: 0.2, duration: 4.8 },
+    { id: 4, left: 58, delay: 1.1, duration: 5.2 },
+    { id: 5, left: 75, delay: 0.5, duration: 4.5 },
+    { id: 6, left: 88, delay: 1.4, duration: 5.3 },
   ];
 
   return (
     <div
-      className={[
-        'fixed inset-0 z-40 overflow-hidden flex items-center justify-center bg-black/60',
-        'transition-opacity duration-600 ease-out',
-        isOpened ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto',
-      ].join(' ')}
-      style={{ perspective: '1400px' }}
+      className="fixed inset-0 z-50 overflow-hidden"
+      style={{
+        transition: 'opacity 800ms ease-out',
+        opacity: overlayFade ? 0 : 1,
+        pointerEvents: overlayFade ? 'none' : 'auto',
+      }}
       aria-label="Welcome Door Ceremony"
     >
-      {/* ── Soft Rose Petals Floating Down ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-30" aria-hidden="true">
+      {/* ── Deep backdrop ── */}
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(to bottom, #1a0e00 0%, #2a1800 100%)' }}
+      />
+
+      {/* ── Closed door image (kids pushing) ── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transition: 'opacity 1000ms ease-in-out',
+          opacity: openVisible ? 0 : 1,
+        }}
+      >
+        <Image
+          src="/images/door/gate-closed.jpg"
+          alt="Children pushing open the grand wedding doors"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center"
+        />
+        {/* Soft dark vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%)',
+          }}
+        />
+      </div>
+
+      {/* ── Open door image (kids peeking through) ── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transition: 'opacity 1200ms ease-in-out',
+          opacity: openVisible ? 1 : 0,
+        }}
+      >
+        <Image
+          src="/images/door/gate-open.jpg"
+          alt="Children opening the grand wedding doors to reveal the ballroom"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center"
+        />
+        {/* Soft vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.45) 100%)',
+          }}
+        />
+      </div>
+
+      {/* ── Golden light bloom from centre seam ── */}
+      <div
+        className="absolute inset-y-0 left-1/2 -translate-x-1/2 pointer-events-none z-10"
+        style={{
+          width: bloomVisible ? '90vw' : '6px',
+          transition: 'opacity 700ms ease-out, width 1200ms cubic-bezier(0.22,1,0.36,1)',
+          opacity: bloomVisible ? 1 : 0,
+          background:
+            'radial-gradient(ellipse at center, rgba(255,250,220,0.95) 0%, rgba(212,175,55,0.65) 40%, transparent 72%)',
+          filter: 'blur(28px)',
+        }}
+      />
+
+      {/* ── Floating petals ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-20" aria-hidden="true">
         {petals.map((p) => (
           <Petal key={p.id} {...p} />
         ))}
       </div>
 
-      {/* ── Center Golden Radiant Light (Expands as doors part) ── */}
+      {/* ── Welcome badge (fades out when doors open) ── */}
       <div
-        className={[
-          'absolute inset-y-0 w-16 sm:w-32 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-all duration-[1600ms] ease-out',
-          isOpening ? 'opacity-95 scale-x-[12] sm:scale-x-[20]' : 'opacity-0 scale-x-0',
-        ].join(' ')}
+        className="absolute top-6 inset-x-0 flex justify-center z-30 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(255,250,230,0.98) 0%, rgba(212,175,55,0.75) 45%, transparent 75%)',
-          filter: 'blur(20px)',
-        }}
-      />
-
-      {/* ── Left Door Leaf: Boy in Tuxedo holding gold handle ── */}
-      <div
-        className={[
-          'absolute top-0 bottom-0 left-0 w-1/2 overflow-hidden select-none z-20',
-          'transition-all duration-[1900ms] ease-[cubic-bezier(0.25,1,0.3,1)]',
-          'origin-left shadow-2xl',
-        ].join(' ')}
-        style={{
-          transform: isOpening
-            ? 'perspective(1200px) rotateY(-88deg) translateX(-80px)'
-            : 'perspective(1200px) rotateY(0deg) translateX(0)',
-          willChange: 'transform',
+          transition: 'opacity 600ms ease-out, transform 600ms ease-out',
+          opacity: openVisible ? 0 : 1,
+          transform: openVisible ? 'translateY(-12px)' : 'translateY(0)',
         }}
       >
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/door/gate-kids-left.jpg"
-            alt="Page boy opening the palace wedding gate"
-            fill
-            sizes="50vw"
-            priority
-            className="object-cover object-right"
-          />
-          {/* Subtle gold inner seam shadow */}
-          <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/30 to-transparent pointer-events-none" />
-        </div>
-      </div>
-
-      {/* ── Right Door Leaf: Flower girl in ivory dress holding gold handle ── */}
-      <div
-        className={[
-          'absolute top-0 bottom-0 right-0 w-1/2 overflow-hidden select-none z-20',
-          'transition-all duration-[1900ms] ease-[cubic-bezier(0.25,1,0.3,1)]',
-          'origin-right shadow-2xl',
-        ].join(' ')}
-        style={{
-          transform: isOpening
-            ? 'perspective(1200px) rotateY(88deg) translateX(80px)'
-            : 'perspective(1200px) rotateY(0deg) translateX(0)',
-          willChange: 'transform',
-        }}
-      >
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/door/gate-kids-right.jpg"
-            alt="Flower girl opening the palace wedding gate"
-            fill
-            sizes="50vw"
-            priority
-            className="object-cover object-left"
-          />
-          {/* Subtle gold inner seam shadow */}
-          <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/30 to-transparent pointer-events-none" />
-        </div>
-      </div>
-
-      {/* ── Top Welcome Badge ── */}
-      <div
-        className={[
-          'absolute top-6 inset-x-0 flex justify-center z-30 pointer-events-none transition-all duration-700 ease-out',
-          isOpening ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100',
-        ].join(' ')}
-      >
-        <div className="px-5 py-2 rounded-full bg-white/95 border-2 border-[#d4af37] shadow-xl flex items-center gap-2">
-          <span className="text-[#d4af37] text-xs">❦</span>
-          <span className="font-serif text-xs sm:text-sm text-[#88651a] tracking-[0.25em] uppercase font-bold">
+        <div
+          className="px-5 py-2 rounded-full border-2 shadow-xl flex items-center gap-2"
+          style={{
+            background: 'rgba(255,255,255,0.95)',
+            borderColor: '#d4af37',
+          }}
+        >
+          <span style={{ color: '#d4af37', fontSize: '14px' }}>❦</span>
+          <span
+            className="font-serif text-xs sm:text-sm font-bold tracking-[0.25em] uppercase"
+            style={{ color: '#88651a' }}
+          >
             Welcome to Our Wedding
           </span>
-          <span className="text-[#d4af37] text-xs">❦</span>
+          <span style={{ color: '#d4af37', fontSize: '14px' }}>❦</span>
         </div>
       </div>
 
-      {/* Skip button for instant bypass if desired */}
+      {/* ── Skip button ── */}
       <button
-        onClick={onAnimationComplete}
-        className="absolute bottom-6 right-6 z-40 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 text-white text-xs font-sans tracking-widest backdrop-blur-md border border-white/30 transition-all cursor-pointer shadow-lg"
+        onClick={() => {
+          setStage('finished');
+          onAnimationComplete();
+        }}
+        className="absolute bottom-6 right-6 z-40 px-4 py-2 rounded-full text-white text-xs font-sans tracking-widest backdrop-blur-md border border-white/30 transition-all cursor-pointer shadow-lg"
+        style={{ background: 'rgba(0,0,0,0.60)' }}
         aria-label="Skip entrance animation"
       >
         Skip ➔
       </button>
 
-      {/* Petal animation keyframe style */}
+      {/* ── Petal keyframes ── */}
       <style jsx>{`
         @keyframes fall-petal {
           0% {
@@ -207,10 +252,10 @@ export function KidsDoorOpening({ isOpen, onAnimationComplete }: KidsDoorOpening
             opacity: 0.9;
           }
           85% {
-            opacity: 0.8;
+            opacity: 0.7;
           }
           100% {
-            transform: translate3d(30px, 105vh, 0) rotate(180deg);
+            transform: translate3d(28px, 105vh, 0) rotate(170deg);
             opacity: 0;
           }
         }
