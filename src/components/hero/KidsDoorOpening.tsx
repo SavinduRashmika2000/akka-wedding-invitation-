@@ -8,7 +8,7 @@ interface KidsDoorOpeningProps {
   onAnimationComplete: () => void;
 }
 
-type DoorStage = 'idle' | 'closed' | 'light-bloom' | 'opening' | 'opened' | 'fadeout' | 'finished';
+type DoorStage = 'idle' | 'closed' | 'opening' | 'opened' | 'fadeout' | 'finished';
 
 /**
  * Floating flower petal
@@ -71,38 +71,33 @@ export function KidsDoorOpening({ isOpen, onAnimationComplete }: KidsDoorOpening
     // Show closed door immediately
     setStage('closed');
 
-    // Golden light bloom begins
-    const t1 = setTimeout(() => setStage('light-bloom'), 600);
-
     // Cross-fade to open image
-    const t2 = setTimeout(() => setStage('opening'), 1200);
+    const t1 = setTimeout(() => setStage('opening'), 800);
 
     // Fully open image shown
-    const t3 = setTimeout(() => setStage('opened'), 2200);
+    const t2 = setTimeout(() => setStage('opened'), 1900);
 
     // Begin fade-out of whole overlay
-    const t4 = setTimeout(() => setStage('fadeout'), 3200);
+    const t3 = setTimeout(() => setStage('fadeout'), 2900);
 
     // Unmount
-    const t5 = setTimeout(() => {
+    const t4 = setTimeout(() => {
       setStage('finished');
       onAnimationComplete();
-    }, 4000);
+    }, 3600);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
-      clearTimeout(t5);
     };
   }, [isOpen, onAnimationComplete]);
 
   if (!isOpen || stage === 'idle' || stage === 'finished') return null;
 
-  const bloomVisible = stage === 'light-bloom' || stage === 'opening' || stage === 'opened' || stage === 'fadeout';
-  const openVisible  = stage === 'opening'    || stage === 'opened' || stage === 'fadeout';
-  const overlayFade  = stage === 'fadeout';
+  const openVisible = stage === 'opening' || stage === 'opened' || stage === 'fadeout';
+  const overlayFade = stage === 'fadeout';
 
   const petals = [
     { id: 1, left: 10, delay: 0,   duration: 5.0 },
@@ -180,19 +175,6 @@ export function KidsDoorOpening({ isOpen, onAnimationComplete }: KidsDoorOpening
           }}
         />
       </div>
-
-      {/* ── Golden light bloom from centre seam ── */}
-      <div
-        className="absolute inset-y-0 left-1/2 -translate-x-1/2 pointer-events-none z-10"
-        style={{
-          width: bloomVisible ? '90vw' : '6px',
-          transition: 'opacity 700ms ease-out, width 1200ms cubic-bezier(0.22,1,0.36,1)',
-          opacity: bloomVisible ? 1 : 0,
-          background:
-            'radial-gradient(ellipse at center, rgba(255,250,220,0.95) 0%, rgba(212,175,55,0.65) 40%, transparent 72%)',
-          filter: 'blur(28px)',
-        }}
-      />
 
       {/* ── Floating petals ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-20" aria-hidden="true">
