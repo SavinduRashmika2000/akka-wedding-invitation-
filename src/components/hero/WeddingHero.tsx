@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { weddingConfig } from '@/config/wedding';
 import { useMusicContext } from '@/components/music/MusicContext';
+import { KidsDoorOpening } from './KidsDoorOpening';
 
 interface WeddingHeroProps {
   hasEntered?: boolean;
@@ -10,14 +11,16 @@ interface WeddingHeroProps {
 }
 
 /**
- * Wedding Hero Section — two states:
+ * Wedding Hero Section — states:
  * 1. White & Gold invitation card (video preloads in background)
- * 2. Full-screen video after "Open Invitation" click + music starts
+ * 2. Welcome Door opening ceremony with page boy & flower girl
+ * 3. Full-screen video after "Open Invitation" click + music starts
  */
 export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { play } = useMusicContext();
   const [localHasEntered, setLocalHasEntered] = useState(false);
+  const [isDoorOpening, setIsDoorOpening] = useState(false);
 
   const hasEntered = propHasEntered !== undefined ? propHasEntered : localHasEntered;
 
@@ -40,7 +43,10 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
       });
     }
 
-    // 3. Smoothly reveal the video viewport
+    // 3. Launch kids floral gate opening transition
+    setIsDoorOpening(true);
+
+    // 4. Smoothly reveal the video viewport and sections
     if (onOpen) {
       onOpen();
     } else {
@@ -201,6 +207,12 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
           </div>
         </>
       )}
+
+      {/* ── Welcome Gate with Page Boy & Flower Girl Opening Ceremony ── */}
+      <KidsDoorOpening
+        isOpen={isDoorOpening}
+        onAnimationComplete={() => setIsDoorOpening(false)}
+      />
     </section>
   );
 }
