@@ -210,19 +210,6 @@ export function KidsDoorOpening({ isOpen, onAnimationComplete }: KidsDoorOpening
         </div>
       </div>
 
-      {/* ── Skip button ── */}
-      <button
-        onClick={() => {
-          setStage('finished');
-          onAnimationComplete();
-        }}
-        className="absolute bottom-6 right-6 z-40 px-4 py-2 rounded-full text-white text-xs font-sans tracking-widest backdrop-blur-md border border-white/30 transition-all cursor-pointer shadow-lg"
-        style={{ background: 'rgba(0,0,0,0.60)' }}
-        aria-label="Skip entrance animation"
-      >
-        Skip ➔
-      </button>
-
       {/* ── Petal keyframes ── */}
       <style jsx>{`
         @keyframes fall-petal {
