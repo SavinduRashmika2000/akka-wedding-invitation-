@@ -8,7 +8,7 @@ export function InvitationSection() {
   return (
     <section
       id="invitation"
-      className="relative py-24 sm:py-32 px-6 bg-white overflow-hidden"
+      className="relative py-24 sm:py-32 px-6 bg-white overflow-hidden section-optimized"
       aria-label="Wedding invitation"
     >
       {/* Decorative top gold line */}

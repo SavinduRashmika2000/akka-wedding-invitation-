@@ -44,7 +44,7 @@ export const weddingConfig: WeddingConfig = {
     subheading: 'Where Forever Began · 30 July 2026',
     images: [
       {
-        src: '/images/engagement/engagement-2.jpeg',
+        src: '/images/engagement/engagement-2.jpg',
         alt: 'Yaanaki & Kavinda Engagement',
         caption: 'The Beginning of Forever',
       },

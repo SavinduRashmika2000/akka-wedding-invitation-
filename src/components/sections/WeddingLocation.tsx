@@ -8,7 +8,7 @@ export function WeddingLocation() {
   return (
     <section
       id="location"
-      className="relative py-24 sm:py-32 px-6 bg-[#faf9f6] overflow-hidden"
+      className="relative py-24 sm:py-32 px-6 bg-[#faf9f6] overflow-hidden section-optimized"
       aria-label="Wedding venue"
     >
       <div className="relative max-w-xl mx-auto text-center">

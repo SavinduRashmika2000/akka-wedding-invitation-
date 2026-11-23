@@ -10,12 +10,12 @@ export function WeddingDate() {
   return (
     <section
       id="date"
-      className="relative py-24 sm:py-32 px-6 bg-[#faf9f6] overflow-hidden"
+      className="relative py-24 sm:py-32 px-6 bg-[#faf9f6] overflow-hidden section-optimized"
       aria-label="Wedding date"
     >
       {/* Soft warm gold background halo */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full bg-amber-100/40 blur-3xl pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-amber-100/30 blur-2xl pointer-events-none"
         aria-hidden="true"
       />
 

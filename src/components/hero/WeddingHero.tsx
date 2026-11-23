@@ -60,14 +60,14 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
       style={{ height: '100svh', minHeight: '100vh' }}
       aria-label="Wedding invitation hero"
     >
-      {/* ── VIDEO always in DOM so it preloads ── */}
+      {/* ── VIDEO preloads metadata for instant playback without blocking bandwidth ── */}
       <video
         ref={videoRef}
         src={weddingConfig.media.landingVideo}
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         className={[
           'absolute inset-0 w-full h-full object-cover z-0 pointer-events-none',
           'transition-opacity duration-1000',
@@ -87,7 +87,7 @@ export function WeddingHero({ hasEntered: propHasEntered, onOpen }: WeddingHeroP
       >
         {/* Soft gold ambient glow */}
         <div
-          className="absolute w-[480px] h-[480px] rounded-full bg-gradient-to-tr from-amber-200/30 to-yellow-100/35 blur-3xl pointer-events-none"
+          className="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-amber-200/25 to-yellow-100/30 blur-2xl pointer-events-none"
           aria-hidden="true"
         />
 

@@ -72,7 +72,7 @@ export function WeddingCountdown() {
   return (
     <section
       id="countdown"
-      className="relative py-24 sm:py-32 px-6 bg-white overflow-hidden"
+      className="relative py-24 sm:py-32 px-6 bg-white overflow-hidden section-optimized"
       aria-label="Countdown to the wedding"
     >
       {/* Decorative top gold line */}

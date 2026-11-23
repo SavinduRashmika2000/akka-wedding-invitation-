@@ -10,7 +10,7 @@ export function WeddingFooter() {
   return (
     <footer
       id="footer"
-      className="relative py-20 sm:py-28 px-6 bg-white overflow-hidden text-center"
+      className="relative py-20 sm:py-28 px-6 bg-white overflow-hidden text-center section-optimized"
       aria-label="Wedding closing"
     >
       {/* Top gold decorative border */}

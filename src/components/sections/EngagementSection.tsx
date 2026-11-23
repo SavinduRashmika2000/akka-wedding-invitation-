@@ -23,11 +23,13 @@ export function EngagementSection() {
 
   const handleImageError = (index: number) => {
     const current = imgSources[index] || engagement.images[index].src;
-    // Gracefully try alternate extension (.jpeg <-> .jpg) before falling back to placeholder
-    if (current.endsWith('.jpeg')) {
+    // Gracefully try alternate extensions (.jpg <-> .webp <-> .jpeg) before falling back to placeholder
+    if (current.endsWith('.jpg')) {
+      setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.jpg$/, '.webp') }));
+    } else if (current.endsWith('.webp')) {
+      setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.webp$/, '.jpeg') }));
+    } else if (current.endsWith('.jpeg')) {
       setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.jpeg$/, '.jpg') }));
-    } else if (current.endsWith('.jpg')) {
-      setImgSources((prev) => ({ ...prev, [index]: current.replace(/\.jpg$/, '.jpeg') }));
     } else {
       setFailedImages((prev) => ({ ...prev, [index]: true }));
     }
@@ -36,12 +38,12 @@ export function EngagementSection() {
   return (
     <section
       id="engagement"
-      className="relative py-24 sm:py-32 px-4 sm:px-6 bg-[#faf9f6] overflow-hidden"
+      className="relative py-24 sm:py-32 px-4 sm:px-6 bg-[#faf9f6] overflow-hidden section-optimized"
       aria-label="Engagement gallery"
     >
       {/* Decorative gold ambient glow */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-amber-100/35 blur-3xl pointer-events-none"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-amber-100/30 blur-2xl pointer-events-none"
         aria-hidden="true"
       />
 
@@ -112,7 +114,7 @@ export function EngagementSection() {
                         }
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         onError={() => handleImageError(index)}
-                        priority
+                        loading="lazy"
                       />
                       {/* Hover overlay hint */}
                       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

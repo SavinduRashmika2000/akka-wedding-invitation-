@@ -206,17 +206,23 @@ body {
 
 .heart-sway-1 {
   animation: fall-sway-1 linear infinite;
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 .heart-sway-2 {
   animation: fall-sway-2 linear infinite;
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 .heart-sway-3 {
   animation: fall-sway-3 linear infinite;
-  will-change: transform, opacity;
+  will-change: transform;
+}
+
+/* Off-screen rendering optimization for silky smooth scrolling */
+.section-optimized {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
 }
 
 /* Scrollbar */
